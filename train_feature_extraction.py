@@ -3,6 +3,9 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from alexnet import AlexNet
 
+rate = 0.001
+mu = 0
+sigma = 0.1
 # Load traffic signs data.
 with open('train.p', 'rb') as f:
     data = pickle.load(f)
@@ -27,8 +30,6 @@ fc7 = tf.stop_gradient(fc7)
 
 # Add the final layer for traffic sign classification.
 shape = (fc7.get_shape().as_list()[-1], nb_classes)  # use this shape for the weight matrix
-mu = 0
-sigma = 0.1
 
 fc8W  = tf.Variable(tf.truncated_normal(shape=shape, mean = mu, stddev = sigma))
 fc8b = tf.Variable(tf.zeros(nb_classes))
@@ -38,8 +39,6 @@ probs = tf.nn.softmax(logits)
 # Define loss, training, accuracy operations.
 # HINT: Look back at your traffic signs project solution, you may
 # be able to reuse some the code.
-rate = 0.001
-
 loss_operation = tf.reduce_mean(probs)
 
 optimizer = tf.train.AdamOptimizer(learning_rate = rate)
