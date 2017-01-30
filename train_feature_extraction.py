@@ -39,12 +39,12 @@ shape = (fc7.get_shape().as_list()[-1], nb_classes)  # use this shape for the we
 fc8W  = tf.Variable(tf.truncated_normal(shape=shape, mean = mu, stddev = sigma))
 fc8b = tf.Variable(tf.zeros(nb_classes))
 logits = tf.nn.xw_plus_b(fc7, fc8W, fc8b)
-probs = tf.nn.softmax(logits)
 
 # Define loss, training, accuracy operations.
 # HINT: Look back at your traffic signs project solution, you may
 # be able to reuse some the code.
-loss_operation = tf.reduce_mean(probs)
+cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits)
+loss_operation = tf.reduce_mean(cross_entropy)
 
 optimizer = tf.train.AdamOptimizer(learning_rate = rate)
 training_operation = optimizer.minimize(loss_operation)
