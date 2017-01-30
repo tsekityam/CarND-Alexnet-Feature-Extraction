@@ -46,7 +46,7 @@ cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits)
 loss_operation = tf.reduce_mean(cross_entropy)
 
 optimizer = tf.train.AdamOptimizer()
-training_operation = optimizer.minimize(loss_operation)
+training_operation = optimizer.minimize(loss_operation, var_list=[fc8W, fc8b])
 
 correct_prediction = tf.equal(tf.argmax(logits, 1), tf.argmax(one_hot_y, 1))
 accuracy_operation = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
