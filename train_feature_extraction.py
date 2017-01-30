@@ -9,7 +9,8 @@ with open('train.p', 'rb') as f:
 X_train = data['features']
 y_train = data['labels']
 
-# TODO: Split data into training and validation sets.
+# Split data into training and validation sets.
+X_train, y_train = shuffle(X_train, y_train, random_state=0)
 
 # TODO: Define placeholders and resize operation.
 
