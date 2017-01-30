@@ -3,7 +3,11 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from alexnet import AlexNet
 
-# TODO: Load traffic signs data.
+# Load traffic signs data.
+with open('train.p', 'rb') as f:
+    data = pickle.load(f)
+X_train = data['features']
+y_train = data['labels']
 
 # TODO: Split data into training and validation sets.
 
