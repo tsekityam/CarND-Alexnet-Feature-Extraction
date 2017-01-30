@@ -14,7 +14,9 @@ X_train, y_train = shuffle(X_train, y_train, random_state=0)
 
 # Define placeholders and resize operation.
 x = tf.placeholder(tf.float32, (None, 32, 32, 3))
+y = tf.placeholder(tf.int32, (None))
 resized = tf.image.resize_images(x, (227, 227))
+one_hot_y = tf.one_hot(y, nb_classes)
 
 # pass placeholder as first argument to `AlexNet`.
 fc7 = AlexNet(resized, feature_extract=True)
@@ -33,8 +35,17 @@ fc8b = tf.Variable(tf.zeros(nb_classes))
 logits = tf.nn.xw_plus_b(fc7, fc8W, fc8b)
 probs = tf.nn.softmax(logits)
 
-# TODO: Define loss, training, accuracy operations.
+# Define loss, training, accuracy operations.
 # HINT: Look back at your traffic signs project solution, you may
 # be able to reuse some the code.
+rate = 0.001
+
+loss_operation = tf.reduce_mean(probs)
+
+optimizer = tf.train.AdamOptimizer(learning_rate = rate)
+training_operation = optimizer.minimize(loss_operation)
+
+correct_prediction = tf.equal(tf.argmax(logits, 1), tf.argmax(one_hot_y, 1))
+accuracy_operation = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 # TODO: Train and evaluate the feature extraction model.
