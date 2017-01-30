@@ -42,7 +42,7 @@ logits = tf.nn.xw_plus_b(fc7, fc8W, fc8b)
 # Define loss, training, accuracy operations.
 # HINT: Look back at your traffic signs project solution, you may
 # be able to reuse some the code.
-cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits)
+cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits, one_hot_y)
 loss_operation = tf.reduce_mean(cross_entropy)
 
 optimizer = tf.train.AdamOptimizer()
