@@ -15,7 +15,7 @@ X_train = data['features']
 y_train = data['labels']
 
 # Split data into training and validation sets.
-X_train, y_train = shuffle(X_train, y_train, random_state=0)
+X_train, X_validation, y_train, y_validation = train_test_split(X_train, y_train, test_size=0.2, random_state=0)
 
 # Define placeholders and resize operation.
 x = tf.placeholder(tf.float32, (None, 32, 32, 3))
