@@ -6,6 +6,8 @@ from alexnet import AlexNet
 rate = 0.001
 mu = 0
 sigma = 0.1
+nb_classes = 43
+
 # Load traffic signs data.
 with open('train.p', 'rb') as f:
     data = pickle.load(f)
