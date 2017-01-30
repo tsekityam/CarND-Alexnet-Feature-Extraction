@@ -6,7 +6,6 @@ from alexnet import AlexNet
 mu = 0
 sigma = 0.1
 nb_classes = 43
-save_file = './model.ckpt'
 BATCH_SIZE = 128
 EPOCHS = 10
 
@@ -80,6 +79,3 @@ with tf.Session() as sess:
         print("Training Accuracy = {:.3f}".format(training_accuracy))
         print("Validation Accuracy = {:.3f}".format(validation_accuracy))
         print()
-
-    # Save the model
-    saver.save(sess, save_file)
