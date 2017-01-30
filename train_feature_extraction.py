@@ -3,7 +3,6 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from alexnet import AlexNet
 
-rate = 0.001
 mu = 0
 sigma = 0.1
 nb_classes = 43
@@ -46,7 +45,7 @@ logits = tf.nn.xw_plus_b(fc7, fc8W, fc8b)
 cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits)
 loss_operation = tf.reduce_mean(cross_entropy)
 
-optimizer = tf.train.AdamOptimizer(learning_rate = rate)
+optimizer = tf.train.AdamOptimizer()
 training_operation = optimizer.minimize(loss_operation)
 
 correct_prediction = tf.equal(tf.argmax(logits, 1), tf.argmax(one_hot_y, 1))
