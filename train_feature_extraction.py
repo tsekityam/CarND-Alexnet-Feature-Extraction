@@ -16,8 +16,8 @@ X_train, y_train = shuffle(X_train, y_train, random_state=0)
 x = tf.placeholder(tf.float32, (None, 32, 32, 3))
 resized = tf.image.resize_images(x, (227, 227))
 
-# TODO: pass placeholder as first argument to `AlexNet`.
-fc7 = AlexNet(..., feature_extract=True)
+# pass placeholder as first argument to `AlexNet`.
+fc7 = AlexNet(resized, feature_extract=True)
 # NOTE: `tf.stop_gradient` prevents the gradient from flowing backwards
 # past this point, keeping the weights before and up to `fc7` frozen.
 # This also makes training faster, less work to do!
