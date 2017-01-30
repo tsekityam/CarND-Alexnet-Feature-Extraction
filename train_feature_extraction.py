@@ -7,6 +7,9 @@ rate = 0.001
 mu = 0
 sigma = 0.1
 nb_classes = 43
+save_file = './model.ckpt'
+BATCH_SIZE = 128
+EPOCHS = 10
 
 # Load traffic signs data.
 with open('train.p', 'rb') as f:
@@ -49,4 +52,25 @@ training_operation = optimizer.minimize(loss_operation)
 correct_prediction = tf.equal(tf.argmax(logits, 1), tf.argmax(one_hot_y, 1))
 accuracy_operation = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
-# TODO: Train and evaluate the feature extraction model.
+# Train and evaluate the feature extraction model.
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    num_examples = len(X_train)
+
+    print("Training...")
+    print()
+    for i in range(EPOCHS):
+        for offset in range(0, num_examples, BATCH_SIZE):
+            end = offset + BATCH_SIZE
+            batch_x, batch_y = X_train[offset:end], y_train[offset:end]
+            sess.run(training_operation, feed_dict={x: batch_x, y: batch_y})
+
+        training_accuracy = evaluate(X_train, y_train)
+        validation_accuracy = evaluate(X_validation, y_validation)
+        print("EPOCH {} ...".format(i+1))
+        print("Training Accuracy = {:.3f}".format(training_accuracy))
+        print("Validation Accuracy = {:.3f}".format(validation_accuracy))
+        print()
+
+    # Save the model
+    saver.save(sess, save_file)
