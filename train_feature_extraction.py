@@ -23,7 +23,15 @@ fc7 = AlexNet(resized, feature_extract=True)
 # This also makes training faster, less work to do!
 fc7 = tf.stop_gradient(fc7)
 
-# TODO: Add the final layer for traffic sign classification.
+# Add the final layer for traffic sign classification.
+shape = (fc7.get_shape().as_list()[-1], nb_classes)  # use this shape for the weight matrix
+mu = 0
+sigma = 0.1
+
+fc8W  = tf.Variable(tf.truncated_normal(shape=shape, mean = mu, stddev = sigma))
+fc8b = tf.Variable(tf.zeros(nb_classes))
+logits = tf.nn.xw_plus_b(fc7, fc8W, fc8b)
+probs = tf.nn.softmax(logits)
 
 # TODO: Define loss, training, accuracy operations.
 # HINT: Look back at your traffic signs project solution, you may
