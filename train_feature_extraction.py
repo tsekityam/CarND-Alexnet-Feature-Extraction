@@ -12,7 +12,9 @@ y_train = data['labels']
 # Split data into training and validation sets.
 X_train, y_train = shuffle(X_train, y_train, random_state=0)
 
-# TODO: Define placeholders and resize operation.
+# Define placeholders and resize operation.
+x = tf.placeholder(tf.float32, (None, 32, 32, 3))
+resized = tf.image.resize_images(x, (227, 227))
 
 # TODO: pass placeholder as first argument to `AlexNet`.
 fc7 = AlexNet(..., feature_extract=True)
